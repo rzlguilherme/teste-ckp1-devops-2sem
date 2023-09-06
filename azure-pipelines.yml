@@ -1,0 +1,27 @@
+trigger:
+  branches:
+    include:
+    - refs/heads/master
+name: $(date:yyyyMMdd)$(rev:.rr)
+jobs:
+- job: Phase_1
+  displayName: Build Push Image
+  cancelTimeoutInMinutes: 1
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+  - task: SonarQubePrepare@4
+    displayName: Prepare analysis on SonarQube
+    inputs:
+      SonarQube: 01c4892e53968b51d131f43f210a440c5dda35b5
+      projectKey: ckp-teste-cloudhub
+      projectName: ckp teste cloudhub
+  - task: PythonScript@0
+    displayName: python build
+    inputs:
+      projects: '*.py'
+  - task: SonarQubeAnalyze@4
+    displayName: Run Code Analysis
+  - task: SonarQubePublish@4
+    displayName: Publish Quality Gate Result
