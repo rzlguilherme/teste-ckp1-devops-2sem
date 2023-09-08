@@ -14,7 +14,7 @@ jobs:
   - task: SonarQubePrepare@4
     displayName: Prepare analysis on SonarQube
     inputs:
-      SonarQube: 01c4892e53968b51d131f43f210a440c5dda35b5
+      SonarQube: teste
       projectKey: ckp-teste-cloudhub
       projectName: ckp teste cloudhub
   - task: PythonScript@0
