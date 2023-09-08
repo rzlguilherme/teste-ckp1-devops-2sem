@@ -18,10 +18,10 @@ jobs:
       projectKey: ckp-teste-cloudhub
       projectName: ckp teste cloudhub
   - task: PythonScript@0
-    scriptSource: inline
+    scriptSource: 'teste-ckp1-devops-2sem/teste.py'
     displayName: python build
-    inputs:
-      projects: 'teste-ckp1-devops-2sem/teste.py'
+    #inputs:
+      #projects: 'teste-ckp1-devops-2sem/teste.py'
   - task: SonarQubeAnalyze@4
     displayName: Run Code Analysis
   - task: SonarQubePublish@4
