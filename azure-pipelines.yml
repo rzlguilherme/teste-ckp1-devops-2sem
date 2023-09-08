@@ -18,7 +18,7 @@ jobs:
       projectKey: ckp-teste-cloudhub
       projectName: ckp teste cloudhub
   - task: PythonScript@0
-    displayName: python build 2
+    displayName: python build 
     inputs:
       scriptSource: 'inline'
       script: |
@@ -484,6 +484,7 @@ jobs:
         # INICIAR
         #######################################################################################################################
         logar()
+  - task: SonarQubeAnalyze@4
     displayName: Run Code Analysis
   - task: SonarQubePublish@4
     displayName: Publish Quality Gate Result
