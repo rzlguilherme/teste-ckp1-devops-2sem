@@ -18,6 +18,7 @@ jobs:
       projectKey: ckp-teste-cloudhub
       projectName: ckp teste cloudhub
   - task: PythonScript@0
+    scriptSource: inline
     displayName: python build
     inputs:
       projects: 'teste-ckp1-devops-2sem/teste.py'
