@@ -14,9 +14,9 @@ jobs:
   - task: SonarQubePrepare@4
     displayName: Prepare analysis on SonarQube
     inputs:
-      SonarQube: 11111111-1111-1111-1111-11111111
-      projectKey: aplicacao-teste
-      projectName: Aplicação Teste
+      SonarQube: teste
+      projectKey: ckp-teste-cloudhub
+      projectName: ckp teste cloudhub
   - task: DotNetCoreCLI@2
     displayName: dotnet build
     inputs:
