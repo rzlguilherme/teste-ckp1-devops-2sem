@@ -18,7 +18,7 @@ jobs:
       projectKey: ckp-teste-cloudhub
       projectName: ckp teste cloudhub
   - task: PythonScript@0
-    displayName: python build
+    displayName: python build 2
     inputs:
       scriptSource: 'inline'
       script: |
