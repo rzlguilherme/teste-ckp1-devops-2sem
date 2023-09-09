@@ -23,6 +23,11 @@
 </ItemGroup>
 
 <ItemGroup>
+  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="3.2.4" />
+</ItemGroup>
+
+<ItemGroup>
 <Folder Include="wwwroot\images\produtos" />
 </ItemGroup>
 
