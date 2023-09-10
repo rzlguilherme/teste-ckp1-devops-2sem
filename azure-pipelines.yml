@@ -17,8 +17,6 @@ jobs:
       SonarQube: teste
       projectKey: ckp-teste-cloudhub
       projectName: ckp teste cloudhub
-  - task: UniversalPackages@0
-    displayName: Restore Python packages
   - task: SonarQubeAnalyze@4
     displayName: Run Code Analysis
   - task: SonarQubePublish@4
