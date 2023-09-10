@@ -5,27 +5,43 @@ trigger:
 name: $(date:yyyyMMdd)$(rev:.rr)
 jobs:
 - job: Phase_1
-  displayName: Build Push Image
+  displayName: Build and analyze Python code
   cancelTimeoutInMinutes: 1
   pool:
     vmImage: ubuntu-20.04
   steps:
   - checkout: self
+
   - task: SonarQubePrepare@4
     displayName: Prepare analysis on SonarQube
     inputs:
-      SonarQube: teste
+      SonarQube: http://sonarqube-teste-cloudhub.azurewebsites.net/
       projectKey: ckp-teste-cloudhub
       projectName: ckp teste cloudhub
-  - task: NuGetRestore@2
-    displayName: Restore NuGet packages
+
+  - task: RestorePythonPackages@2
+    displayName: Restore Python packages
     inputs:
-      version: 5.8
-  - task: DotNetCoreCLI@2
-    displayName: dotnet build
+      version: 3.9
+
+  - task: BuildPython@2
+    displayName: Build Python code
     inputs:
-      projects: '**/*.csproj'
+      script: main.py
+
   - task: SonarQubeAnalyze@4
-    displayName: Run Code Analysis
+    displayName: Analyze Python code with SonarQube
+    inputs:
+      sonarcloud: sonarcloud.io
+      organization: https://dev.azure.com/RM92952/
+      projectKey: ckp-teste-cloudhub
+      projectVersion: 2023-09-10
+
   - task: SonarQubePublish@4
-    displayName: Publish Quality Gate Result
+    displayName: Publish quality gate result
+    inputs:
+      sonarcloud: sonarcloud.io
+      organization: https://dev.azure.com/RM92952/
+      qualityGates:
+        - gateId: "SonarQube Quality Gate"
+          status: "OK"
