@@ -1,47 +1,41 @@
 trigger:
   branches:
     include:
-    - refs/heads/master
-name: $(date:yyyyMMdd)$(rev:.rr)
+      - refs/heads/master
+
 jobs:
-- job: Phase_1
-  displayName: Build and analyze Python code
-  cancelTimeoutInMinutes: 1
-  pool:
-    vmImage: ubuntu-20.04
-  steps:
-  - checkout: self
+  - job: Phase_1
+    displayName: Build and analyze Python code
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: ubuntu-20.04
+    steps:
+      - checkout: self
 
-  - task: SonarQubePrepare@4
-    displayName: Prepare analysis on SonarQube
-    inputs:
-      SonarQube: http://sonarqube-teste-cloudhub.azurewebsites.net/
-      projectKey: ckp-teste-cloudhub
-      projectName: ckp teste cloudhub
+      - task: SonarQubePrepare@4
+        inputs:
+          SonarQube: http://sonarqube-teste-cloudhub.azurewebsites.net/
+          projectKey: ckp-teste-cloudhub
+          projectName: ckp teste cloudhub
+          projectVersion: 2023-09-10
 
-  - task: RestorePythonPackages@2
-    displayName: Restore Python packages
-    inputs:
-      version: 3.9
+      - task: RestorePythonPackages@2
+        inputs:
+          version: 3.9
 
-  - task: BuildPython@2
-    displayName: Build Python code
-    inputs:
-      script: main.py
+      - task: BuildPython@2
+        inputs:
+          script: main.py
 
-  - task: SonarQubeAnalyze@4
-    displayName: Analyze Python code with SonarQube
-    inputs:
-      sonarcloud: sonarcloud.io
-      organization: https://dev.azure.com/RM92952/
-      projectKey: ckp-teste-cloudhub
-      projectVersion: 2023-09-10
+      - task: SonarQubeAnalyze@4
+        inputs:
+          sonarcloud: sonarcloud.io
+          organization: https://dev.azure.com/RM92952/
 
-  - task: SonarQubePublish@4
-    displayName: Publish quality gate result
-    inputs:
-      sonarcloud: sonarcloud.io
-      organization: https://dev.azure.com/RM92952/
-      qualityGates:
-        - gateId: "SonarQube Quality Gate"
-          status: "OK"
+      - task: SonarQubePublish@4
+        inputs:
+          sonarcloud: sonarcloud.io
+          organization: https://dev.azure.com/RM92952/
+          qualityGates:
+            - gateId: "SonarQube Quality Gate"
+              status: "OK"
