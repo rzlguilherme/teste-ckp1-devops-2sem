@@ -17,6 +17,10 @@ jobs:
       SonarQube: teste
       projectKey: ckp-teste-cloudhub
       projectName: ckp teste cloudhub
+  - task: NuGetRestore@2
+    displayName: Restore NuGet packages
+    inputs:
+      version: 5.8
   - task: DotNetCoreCLI@2
     displayName: dotnet build
     inputs:
